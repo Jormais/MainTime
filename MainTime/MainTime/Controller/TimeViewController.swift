@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class TimeViewController: UIViewController {
     
     var time = Timer()
     var timeActive = false
@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     
     @IBOutlet var timeLabel : UILabel!
     @IBOutlet var pauseButton : UIButton!
+    @IBOutlet var titleLabel : UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +62,10 @@ class ViewController: UIViewController {
     let minutes = Int(time) / 60 % 60
     let seconds = Int(time) % 60
         return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
+    }
+    
+    func retLabel() -> UILabel {
+        return titleLabel
     }
     
 }
