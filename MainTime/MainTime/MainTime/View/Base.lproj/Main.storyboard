@@ -91,15 +91,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" identifier="seguePrueba" id="uv1-AP-oWE"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="TAo-ak-IwY" id="L7b-90-txK"/>
-                                    <outlet property="delegate" destination="TAo-ak-IwY" id="Aja-Yf-HvN"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -111,7 +104,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="n9L-8x-eln"/>
                     </view>
-                    <navigationItem key="navigationItem" id="0yk-eb-iyx"/>
+                    <navigationItem key="navigationItem" title="Events" id="0yk-eb-iyx"/>
+                    <connections>
+                        <outlet property="eventTable" destination="s99-eO-aie" id="zdl-Ak-4gT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ABH-nt-AeM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -125,6 +121,9 @@
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jXV-fb-Zsd">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="TAo-ak-IwY" kind="relationship" relationship="rootViewController" id="4VM-Kq-jD3"/>
                     </connections>

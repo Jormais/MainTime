@@ -8,7 +8,10 @@
 
 import UIKit
 
-class EventTableViewController : UIViewController, UITableViewDataSource {
+class EventTableViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    @IBOutlet var eventTable : UITableView!
+    var events = ["Proyecto 1","Proyecto 2"]
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
@@ -19,28 +22,23 @@ class EventTableViewController : UIViewController, UITableViewDataSource {
         if indexPath.row == 0{
             
         }
-        cell.textLabel?.text = "Prueba"
+        if indexPath.row == 0 {
+            cell.textLabel?.text = events[indexPath.row]
+        } else if indexPath.row == 1 {
+             cell.textLabel?.text = events[indexPath.row]
+        }
+       
         return cell
     }
     
-
-//            let vc = storyboard?.instantiateViewController(withIdentifier: "timeController") as! UIViewController
-//            show(vc, sender: self)
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        
-//        if indexPath.row == 1 {
-//            self.performSegue(withIdentifier: "seguePrueba", sender: nil)
-//            print("pasa algo1")
-//        } else if indexPath.row == 0 {
-//            self.performSegue(withIdentifier: "seguePrueba", sender: nil)
-//            
-//            print("pasa algo2")
-//        }
-//        print("pasa algo3")
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "timeController") as! UIViewController
+        show(vc, sender: self)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.eventTable.delegate = self
+        self.eventTable.dataSource = self
     }
 }
