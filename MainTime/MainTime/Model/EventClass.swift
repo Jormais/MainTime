@@ -8,7 +8,7 @@
 
 import Foundation
 
-class EventClass {
+class EventClass {//modelo para los eventos 
     static var event = EventClass()
     private init() {}
     
