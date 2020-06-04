@@ -42,13 +42,26 @@ class EventTableViewController : UIViewController, UITableViewDataSource, UITabl
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        debajo definimos nuestro view controller de desrino ya que esta fun se acrtiva al pulsar una celda
 //        let vc = storyboard?.instantiateViewController(withIdentifier: "timeController") as! UIViewController
 //        show(vc, sender: self) //cambiamos de pantalla
 //        EventClass.event.nameEvent = events[indexPath.row] //le damos el valor del titulo al modelo de datos
+//    }
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let greenAction = UIContextualAction(style: .normal, title: "Green") { (action, view, actionPerformed) in
+            
+        }
+        greenAction.backgroundColor = .green
+         
+        let redAction = UIContextualAction(style: .normal, title: "Red") { (action, view, actionPerformed) in
+            
+        }
+        redAction.backgroundColor = .red
+         
+        return UISwipeActionsConfiguration(actions: [greenAction,redAction])
     }
-    
     func updateSearchResults(for searchController: UISearchController) {
            let searchBar = searchController.searchBar
            filterForSearchText(searchBar.text!)
