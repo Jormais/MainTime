@@ -84,11 +84,9 @@ class EventTableViewController : UIViewController, UITableViewDataSource, UITabl
                 return
             }
         var event : String = "" //creamos el evento que pasaremos a la pantalla de detalle
-        if isFiltering {
-            event = filteredEvents[indexPath.row]
-        }else {
-            event = events[indexPath.row]
-        }
+        
+        event = isFiltering == true ? filteredEvents[indexPath.row] : events[indexPath.row] // condicionamos si esta filtrado
+    
         detailViewController.titleL = event //le pasamos al controlador el texto declarandoselo a una variable del mismo
     }
     
