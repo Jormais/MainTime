@@ -42,26 +42,32 @@ class EventTableViewController : UIViewController, UITableViewDataSource, UITabl
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        debajo definimos nuestro view controller de desrino ya que esta fun se acrtiva al pulsar una celda
-//        let vc = storyboard?.instantiateViewController(withIdentifier: "timeController") as! UIViewController
-//        show(vc, sender: self) //cambiamos de pantalla
-//        EventClass.event.nameEvent = events[indexPath.row] //le damos el valor del titulo al modelo de datos
-//    }
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        let greenAction = UIContextualAction(style: .normal, title: "Green") { (action, view, actionPerformed) in
-            
-        }
-        greenAction.backgroundColor = .green
-         
-        let redAction = UIContextualAction(style: .normal, title: "Red") { (action, view, actionPerformed) in
-            
-        }
-        redAction.backgroundColor = .red
-         
-        return UISwipeActionsConfiguration(actions: [greenAction,redAction])
+        UISwipeActionsConfiguration(actions: [makeArchiveContextualAction(forRowAt: indexPath), makeDeleteContextualAction(forRowAt: indexPath)]) //aquihacemos el return sin la palabla reservada siguiendo el patron de swift 5 probando
     }
+    
+    func makeArchiveContextualAction(forRowAt indexPath: IndexPath) -> UIContextualAction {
+        let action = UIContextualAction(style: .normal, title: "New", handler: { (contextualAction: UIContextualAction, swipeButton: UIView, completionHandler: (Bool) -> Void) in
+            
+       })
+        action.backgroundColor = .green
+       return action
+    }
+    
+    func makeDeleteContextualAction(forRowAt indexPath: IndexPath) -> UIContextualAction {
+       UIContextualAction(style: .destructive,
+           title: "Delete") { (contextualAction: UIContextualAction, swipeButton: UIView, completionHandler: (Bool) -> Void) in
+           //           borrar delda
+           self.events.remove(at: indexPath.row)
+           if self.events.count > 0 {
+               self.eventTable.deleteRows(at: [indexPath], with: .automatic)
+           }else {
+               self.eventTable.reloadRows(at: [indexPath], with: .automatic)
+           }
+           completionHandler(true)
+        }
+    }
+    
     func updateSearchResults(for searchController: UISearchController) {
            let searchBar = searchController.searchBar
            filterForSearchText(searchBar.text!)
