@@ -48,7 +48,8 @@ class EventTableViewController : UIViewController, UITableViewDataSource, UITabl
     
     func makeArchiveContextualAction(forRowAt indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: "New", handler: { (contextualAction: UIContextualAction, swipeButton: UIView, completionHandler: (Bool) -> Void) in
-            
+            self.events.append("Nueva Celda")
+            self.eventTable.insertRows(at: [indexPath], with: .automatic)
        })
         action.backgroundColor = .green
        return action
