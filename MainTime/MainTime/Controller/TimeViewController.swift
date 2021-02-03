@@ -8,12 +8,15 @@
 
 import UIKit
 
+
 class TimeViewController: UIViewController {
     
     var time = Timer()
     var timeActive = false
     var pause = false
     var timeCount = 0
+    var textLabel : [String] = []
+    var titleL : String = ""
     
     @IBOutlet var timeLabel : UILabel!
     @IBOutlet var pauseButton : UIButton!
@@ -23,6 +26,8 @@ class TimeViewController: UIViewController {
         super.viewDidLoad()
         timeLabel.text = "00:00:00"
         pauseButton.setTitle("Pause", for: UIControl.State.normal)
+        titleLabel.text = titleL
+//        titleLabel.text = EventClass.event.nameEvent //le damos el titulo apropiado al label
     }
     
     @IBAction func timeFired() { //funcion que activa el temporizador y contador
@@ -31,7 +36,6 @@ class TimeViewController: UIViewController {
             time = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (tim) in
                 self.timeCount+=1
                 self.timeLabel.text = self.timeString(time: TimeInterval(self.timeCount))
-//                print(tim.fireDate)
             })
         }
     }
@@ -58,14 +62,10 @@ class TimeViewController: UIViewController {
     }
     
     func timeString(time:TimeInterval) -> String { //funcion para formatear salida de texto
-    let hours = Int(time) / 3600
-    let minutes = Int(time) / 60 % 60
-    let seconds = Int(time) % 60
+        let hours = Int(time) / 3600
+        let minutes = Int(time) / 60 % 60
+        let seconds = Int(time) % 60
         return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
-    }
-    
-    func retLabel() -> UILabel {
-        return titleLabel
     }
     
 }

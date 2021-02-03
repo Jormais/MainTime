@@ -13,8 +13,10 @@
 		330D844E23F70C3800FBD0B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 330D844C23F70C3800FBD0B9 /* Main.storyboard */; };
 		330D845023F70C3A00FBD0B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 330D844F23F70C3A00FBD0B9 /* Assets.xcassets */; };
 		330D845323F70C3A00FBD0B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 330D845123F70C3A00FBD0B9 /* LaunchScreen.storyboard */; };
+		33704FD6240C4973007724ED /* EventClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33704FD5240C4973007724ED /* EventClass.swift */; };
 		339967E92406EB9900CC86F1 /* EventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339967E82406EB9900CC86F1 /* EventTableViewController.swift */; };
 		339967EE2406ED0800CC86F1 /* CellEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339967ED2406ED0800CC86F1 /* CellEvent.swift */; };
+		33F8EDAE24794E0800808B0A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 33F8EDAC24794E0800808B0A /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +28,10 @@
 		330D844F23F70C3A00FBD0B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		330D845223F70C3A00FBD0B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		330D845423F70C3A00FBD0B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		33704FD5240C4973007724ED /* EventClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventClass.swift; sourceTree = "<group>"; };
 		339967E82406EB9900CC86F1 /* EventTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewController.swift; sourceTree = "<group>"; };
 		339967ED2406ED0800CC86F1 /* CellEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellEvent.swift; sourceTree = "<group>"; };
+		33F8EDAD24794E0800808B0A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,10 +67,7 @@
 				339967EC2406ECD500CC86F1 /* Controller */,
 				339967EB2406ECCE00CC86F1 /* Model */,
 				339967EA2406ECBE00CC86F1 /* View */,
-				330D844623F70C3800FBD0B9 /* AppDelegate.swift */,
-				330D844823F70C3800FBD0B9 /* SceneDelegate.swift */,
 				330D844F23F70C3A00FBD0B9 /* Assets.xcassets */,
-				330D845123F70C3A00FBD0B9 /* LaunchScreen.storyboard */,
 				330D845423F70C3A00FBD0B9 /* Info.plist */,
 			);
 			path = MainTime;
@@ -76,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				330D844C23F70C3800FBD0B9 /* Main.storyboard */,
+				330D845123F70C3A00FBD0B9 /* LaunchScreen.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -84,6 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				339967ED2406ED0800CC86F1 /* CellEvent.swift */,
+				33704FD5240C4973007724ED /* EventClass.swift */,
+				33F8EDAC24794E0800808B0A /* Model.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -91,6 +95,8 @@
 		339967EC2406ECD500CC86F1 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				330D844623F70C3800FBD0B9 /* AppDelegate.swift */,
+				330D844823F70C3800FBD0B9 /* SceneDelegate.swift */,
 				339967E82406EB9900CC86F1 /* EventTableViewController.swift */,
 				330D844A23F70C3800FBD0B9 /* TimeViewController.swift */,
 			);
@@ -171,6 +177,8 @@
 				330D844B23F70C3800FBD0B9 /* TimeViewController.swift in Sources */,
 				339967EE2406ED0800CC86F1 /* CellEvent.swift in Sources */,
 				330D844723F70C3800FBD0B9 /* AppDelegate.swift in Sources */,
+				33F8EDAE24794E0800808B0A /* Model.xcdatamodeld in Sources */,
+				33704FD6240C4973007724ED /* EventClass.swift in Sources */,
 				339967E92406EB9900CC86F1 /* EventTableViewController.swift in Sources */,
 				330D844923F70C3800FBD0B9 /* SceneDelegate.swift in Sources */,
 			);
@@ -370,6 +378,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		33F8EDAC24794E0800808B0A /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				33F8EDAD24794E0800808B0A /* Model.xcdatamodel */,
+			);
+			currentVersion = 33F8EDAD24794E0800808B0A /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 330D843B23F70C3800FBD0B9 /* Project object */;
 }
