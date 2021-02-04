@@ -11,13 +11,27 @@ import UIKit
 class EventTableViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
     
     @IBOutlet var eventTable : UITableView!
-    var events = ["Proyecto 1","Proyecto 2","Proyecto 3","Proyecto 4","Proyecto 5","Proyecto 6","Proyecto 7"]
+    var events : [String] = ["1","12","123","qwerty","3"]
     var filteredEvents : [String] = [] //array de filtrado para el buscador
     var isSearchBarEmpty: Bool { //se comprueba si la barra de busqueda esta vacia
       return searchController.searchBar.text?.isEmpty ?? true
     }
     var isFiltering: Bool { //se comprueba si se ha filtrado
       return searchController.isActive && !isSearchBarEmpty
+    }
+    
+    @IBAction func createCell() {
+//        aqui deberemos implementar la instancia del objeto a llamar en este caso sera la celda
+//        aqui no modificaremos los parametros simplemente crearemos aqui segun lo que introduxca el usuario
+        let alert = UIAlertController(title: "crear", message: "Se va a crear una celda", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "confirmar", style: .default, handler: nil))
+        alert.addTextField{ (nameCell) in
+            self.events.append(nameCell.text!)
+            print("Titulo celda: " + nameCell.text!)
+            self.eventTable.reloadData()
+        }
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     let searchController = UISearchController(searchResultsController: nil) //controlador para barra de busqueda
@@ -43,17 +57,19 @@ class EventTableViewController : UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        UISwipeActionsConfiguration(actions: [makeArchiveContextualAction(forRowAt: indexPath), makeDeleteContextualAction(forRowAt: indexPath)]) //aquihacemos el return sin la palabla reservada siguiendo el patron de swift 5 probando
+        UISwipeActionsConfiguration(actions: [ makeDeleteContextualAction(forRowAt: indexPath)])
+        //makeArchiveContextualAction(forRowAt: indexPath)
+        //aquihacemos el return sin la palabla reservada siguiendo el patron de swift 5 probando
     }
     
-    func makeArchiveContextualAction(forRowAt indexPath: IndexPath) -> UIContextualAction {
-        let action = UIContextualAction(style: .normal, title: "New", handler: { (contextualAction: UIContextualAction, swipeButton: UIView, completionHandler: (Bool) -> Void) in
-            self.events.append("Nueva Celda")
-            self.eventTable.insertRows(at: [indexPath], with: .automatic)
-       })
-        action.backgroundColor = .green
-       return action
-    }
+//    func makeArchiveContextualAction(forRowAt indexPath: IndexPath) -> UIContextualAction {
+//        let action = UIContextualAction(style: .normal, title: "New", handler: { (contextualAction: UIContextualAction, swipeButton: UIView, completionHandler: (Bool) -> Void) in
+//            self.events.append("Nueva Celda")
+//            self.eventTable.insertRows(at: [indexPath], with: .automatic)
+//       })
+//        action.backgroundColor = .green
+//       return action
+//    }
     
     func makeDeleteContextualAction(forRowAt indexPath: IndexPath) -> UIContextualAction {
        UIContextualAction(style: .destructive,
