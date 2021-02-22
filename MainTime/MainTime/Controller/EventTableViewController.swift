@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import CoreData
+
+let appDelegate = UIApplication.shared.delegate as? AppDelegate
 
 class EventTableViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
     
     @IBOutlet var eventTable : UITableView!
     var events : [String] = ["1","12","123","qwerty","3"]
     var filteredEvents : [String] = [] //array de filtrado para el buscador
+    var event : [Event] = []
     var isSearchBarEmpty: Bool { //se comprueba si la barra de busqueda esta vacia
       return searchController.searchBar.text?.isEmpty ?? true
     }
@@ -23,15 +27,27 @@ class EventTableViewController : UIViewController, UITableViewDataSource, UITabl
     @IBAction func createCell() {
 //        aqui deberemos implementar la instancia del objeto a llamar en este caso sera la celda
 //        aqui no modificaremos los parametros simplemente crearemos aqui segun lo que introduxca el usuario
-        let alert = UIAlertController(title: "crear", message: "Se va a crear una celda", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "confirmar", style: .default, handler: nil))
-        alert.addTextField{ (nameCell) in
-            self.events.append(nameCell.text!)
-            print("Titulo celda: " + nameCell.text!)
-            self.eventTable.reloadData()
-        }
-        self.present(alert, animated: true, completion: nil)
-        
+        let alertController = UIAlertController(title: "Add New Cell", message: "", preferredStyle: .alert)
+            let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
+                let firstTextField = alertController.textFields![0] as UITextField
+                
+                self.save(textField: firstTextField.text!)
+//                self.events.append(firstTextField.text!)
+                self.fetch()
+                self.eventTable.reloadData()
+                
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (action : UIAlertAction!) -> Void in
+                
+            })
+            alertController.addTextField { (textField : UITextField!) -> Void in
+                textField.placeholder = "Enter Name"
+            }
+
+            alertController.addAction(saveAction)
+            alertController.addAction(cancelAction)
+            
+            self.present(alertController, animated: true, completion: nil)
     }
     
     let searchController = UISearchController(searchResultsController: nil) //controlador para barra de busqueda
@@ -41,7 +57,7 @@ class EventTableViewController : UIViewController, UITableViewDataSource, UITabl
         if isFiltering { //comprobamos si se ha filtrado para coger el array correcto
             return filteredEvents.count
         }
-        return events.count
+        return event.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -51,7 +67,7 @@ class EventTableViewController : UIViewController, UITableViewDataSource, UITabl
         if isFiltering{ //antes comprobando si se ha filtrado para escoger el array correcto
             cell.textLabel?.text = filteredEvents[indexPath.row]
         } else {
-            cell.textLabel?.text = events[indexPath.row]
+            cell.textLabel?.text = event[indexPath.row].value(forKey: "name") as? String
         }
         return cell
     }
@@ -127,6 +143,32 @@ class EventTableViewController : UIViewController, UITableViewDataSource, UITabl
         navigationItem.searchController = searchController
         // 5 nos aseguramos de que la barra de busqueda no aparezca en siguientes pantallas
         definesPresentationContext = true
-       
+        fetch()
+    }
+    
+    
+    func fetch() {
+        guard let managedContext = appDelegate?.persistentContainer.viewContext else {return}
+        let fechRequest = NSFetchRequest<Event>(entityName: "Event")
+        
+        do{
+            self.event = try managedContext.fetch(fechRequest)
+            print("fech: \(self.event[0].name!)")
+        } catch{
+            debugPrint("error: \(error.localizedDescription)")
+        }
+    }
+    
+    func save(textField: String){
+        guard let managedContext = appDelegate?.persistentContainer.viewContext else {return}
+        let ev = Event(context: managedContext)
+        ev.name = textField
+        
+        do {
+            try managedContext.save()
+            print("guardado")
+        } catch {
+            debugPrint("El error es: \(error.localizedDescription)")
+        }
     }
 }
