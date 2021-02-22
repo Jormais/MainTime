@@ -31,10 +31,18 @@ class EventTableViewController : UIViewController, UITableViewDataSource, UITabl
         let alertController = UIAlertController(title: "Add New Cell", message: "", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
             let firstTextField = alertController.textFields![0] as UITextField
-                
-            self.save(textField: firstTextField.text!)
-            self.fetch()
-            self.eventTable.reloadData()
+            if firstTextField.text != "" {
+                self.save(textField: firstTextField.text!)
+                self.fetch()
+                self.eventTable.reloadData()
+            } else{
+                let alert = UIAlertController(title: "Alerta", message: "Debe escribir el nombre del evento.", preferredStyle: .actionSheet)
+                let OkAction = UIAlertAction(title: "Ok", style: .default, handler: { (action : UIAlertAction!) -> Void in
+                })
+                alert.addAction(OkAction)
+                self.present(alert, animated: true, completion: nil)
+            }
+            
                 
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (action : UIAlertAction!) -> Void in
