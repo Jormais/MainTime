@@ -14,9 +14,10 @@ let appDelegate = UIApplication.shared.delegate as? AppDelegate
 class EventTableViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
     
     @IBOutlet var eventTable : UITableView!
-    var events : [String] = ["1","12","123","qwerty","3"]
-    var filteredEvents : [String] = [] //array de filtrado para el buscador
+    
+    var filteredEvents : [Event] = [] //array de filtrado para el buscador
     var event : [Event] = []
+    
     var isSearchBarEmpty: Bool { //se comprueba si la barra de busqueda esta vacia
       return searchController.searchBar.text?.isEmpty ?? true
     }
@@ -28,33 +29,31 @@ class EventTableViewController : UIViewController, UITableViewDataSource, UITabl
 //        aqui deberemos implementar la instancia del objeto a llamar en este caso sera la celda
 //        aqui no modificaremos los parametros simplemente crearemos aqui segun lo que introduxca el usuario
         let alertController = UIAlertController(title: "Add New Cell", message: "", preferredStyle: .alert)
-            let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
-                let firstTextField = alertController.textFields![0] as UITextField
+        let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
+            let firstTextField = alertController.textFields![0] as UITextField
                 
-                self.save(textField: firstTextField.text!)
-//                self.events.append(firstTextField.text!)
-                self.fetch()
-                self.eventTable.reloadData()
+            self.save(textField: firstTextField.text!)
+            self.fetch()
+            self.eventTable.reloadData()
                 
-            })
-            let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (action : UIAlertAction!) -> Void in
-                
-            })
-            alertController.addTextField { (textField : UITextField!) -> Void in
-                textField.placeholder = "Enter Name"
-            }
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (action : UIAlertAction!) -> Void in
+        })
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Enter Name"
+        }
 
-            alertController.addAction(saveAction)
-            alertController.addAction(cancelAction)
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
             
-            self.present(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     let searchController = UISearchController(searchResultsController: nil) //controlador para barra de busqueda
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering { //comprobamos si se ha filtrado para coger el array correcto
+        if isFiltering{ //comprobamos si se ha filtrado para coger el array correcto
             return filteredEvents.count
         }
         return event.count
@@ -65,7 +64,7 @@ class EventTableViewController : UIViewController, UITableViewDataSource, UITabl
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CellEvent
 //        debajo controlamos que celda se mostrara y que texto tendra
         if isFiltering{ //antes comprobando si se ha filtrado para escoger el array correcto
-            cell.textLabel?.text = filteredEvents[indexPath.row]
+            cell.textLabel?.text = filteredEvents[indexPath.row].value(forKey: "name") as? String
         } else {
             cell.textLabel?.text = event[indexPath.row].value(forKey: "name") as? String
         }
@@ -78,26 +77,18 @@ class EventTableViewController : UIViewController, UITableViewDataSource, UITabl
         //aquihacemos el return sin la palabla reservada siguiendo el patron de swift 5 probando
     }
     
-//    func makeArchiveContextualAction(forRowAt indexPath: IndexPath) -> UIContextualAction {
-//        let action = UIContextualAction(style: .normal, title: "New", handler: { (contextualAction: UIContextualAction, swipeButton: UIView, completionHandler: (Bool) -> Void) in
-//            self.events.append("Nueva Celda")
-//            self.eventTable.insertRows(at: [indexPath], with: .automatic)
-//       })
-//        action.backgroundColor = .green
-//       return action
-//    }
-    
     func makeDeleteContextualAction(forRowAt indexPath: IndexPath) -> UIContextualAction {
        UIContextualAction(style: .destructive,
            title: "Delete") { (contextualAction: UIContextualAction, swipeButton: UIView, completionHandler: (Bool) -> Void) in
            //           borrar delda
-           self.events.remove(at: indexPath.row)
-           if self.events.count > 0 {
-               self.eventTable.deleteRows(at: [indexPath], with: .automatic)
-           }else {
-               self.eventTable.reloadRows(at: [indexPath], with: .automatic)
-           }
-           completionHandler(true)
+        self.event.remove(at: indexPath.row)
+        if self.event.count > 0 {
+            self.eventTable.deleteRows(at: [indexPath], with: .automatic)
+            
+        }else {
+            self.eventTable.reloadRows(at: [indexPath], with: .automatic)
+        }
+            completionHandler(true)
         }
     }
     
@@ -107,9 +98,11 @@ class EventTableViewController : UIViewController, UITableViewDataSource, UITabl
        }
     
     func filterForSearchText(_ searchText: String) { //creamos el filtro que tomara la barra
-      filteredEvents = events.filter { (event) -> Bool in
-        return event.lowercased().contains(searchText.lowercased()) //cogeremos tanto mayus como minus
-      }
+        
+        filteredEvents = event.filter{ (event) -> Bool in
+            return event.name!.lowercased().contains(searchText.lowercased()
+        )}
+        print(filteredEvents)
       
       eventTable.reloadData() //recargamos la tabla para que se vean los cambios
     }
@@ -122,11 +115,11 @@ class EventTableViewController : UIViewController, UITableViewDataSource, UITabl
               else {
                 return
             }
-        var event : String = "" //creamos el evento que pasaremos a la pantalla de detalle
+        var eventt : String = "" //creamos el evento que pasaremos a la pantalla de detalle
         
-        event = isFiltering == true ? filteredEvents[indexPath.row] : events[indexPath.row] // condicionamos si esta filtrado
+        eventt = (isFiltering == true ? filteredEvents[indexPath.row].name : event[indexPath.row].name)! // condicionamos si esta filtrado
     
-        detailViewController.titleL = event //le pasamos al controlador el texto declarandoselo a una variable del mismo
+        detailViewController.titleL = eventt //le pasamos al controlador el texto declarandoselo a una variable del mismo
     }
     
     override func viewDidLoad() {
