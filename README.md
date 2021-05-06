@@ -16,3 +16,11 @@ As a second screen we have a detailed view, right now it has a basic timer which
 2. pause
 3. resume
 4. stop
+
+Here are some gifs to show you a little bit of functionality 
+
+<span align="center">
+  <img src="https://github.com/Jormais/MainTime/blob/master/RocketSim%20Recording%20-%20iPhone%2012%20Pro%20-%202021-05-06%2013.27.09.gif" width="250" height="450" />
+  <img src="https://github.com/Jormais/MainTime/blob/master/RocketSim%20Recording%20-%20iPhone%2012%20Pro%20-%202021-05-06%2013.31.06.gif" width="250" height="450" />
+  <img src="https://github.com/Jormais/MainTime/blob/master/RocketSim%20Recording%20-%20iPhone%2012%20Pro%20-%202021-05-06%2013.29.38.gif" width="250" height="450" />
+</span>
